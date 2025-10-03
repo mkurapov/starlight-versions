@@ -91,6 +91,13 @@ If not provided, the version slug is used.
 
 The version [redirect strategy](#redirect-strategies) used when navigating to this version.
 
+### `pagefind`
+
+**Type:** `boolean`  
+**Default:** `true`
+
+Set to false to exclude the versioned pages from the [Pagefind search index](https://starlight.astro.build/reference/frontmatter/#pagefind).
+
 ## Current version configuration
 
 The current version can be configured using the `current` option.
