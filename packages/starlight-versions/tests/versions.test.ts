@@ -742,7 +742,7 @@ describe('getVersionURL', () => {
 })
 
 function createTestVersion(slug: string, redirect: Version['redirect'] = 'same-page'): Version {
-  return { slug, redirect }
+  return { slug, redirect, pagefind: true }
 }
 
 function createTestStarlightConfig(userConfig: Partial<StarlightUserConfig>): StarlightConfig {

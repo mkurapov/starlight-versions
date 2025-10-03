@@ -127,6 +127,10 @@ function handleFrontmatter(tree: Root, file: VFile) {
       }
     }
 
+    if (!file.data.version.pagefind) {
+      frontmatter.pagefind = false
+    }
+
     node.value = getFrontmatterNodeValue(frontmatter)
 
     break

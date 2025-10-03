@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest'
 
 import { transformMarkdown, type TransformContext } from '../libs/markdown'
+import type { Version } from '../libs/versions'
 
 import { expectVersionAssetToMatch, expectVersionAssetsToHaveLength } from './utils'
 
@@ -67,6 +68,30 @@ Test`,
       "---
       title: Test
       slug: fr/2.0.1/test
+      ---
+
+      Test
+      "
+    `)
+  })
+
+  test('adds pagefind property if pagefind is disabled', async () => {
+    const result = await transformMarkdown(
+      `---
+title: Test
+---
+
+Test`,
+      getTestContext({
+        version: getTestVersion({ pagefind: false }),
+      }),
+    )
+
+    expect(result.content).toMatchInlineSnapshot(`
+      "---
+      title: Test
+      slug: 2.0.1/test
+      pagefind: false
       ---
 
       Test
@@ -261,7 +286,16 @@ Test`,
   })
 })
 
-function getTestContext(): TransformContext {
+function getTestVersion(overrides?: Partial<Version>): Version {
+  return {
+    slug: '2.0.1',
+    redirect: 'same-page',
+    pagefind: true,
+    ...overrides,
+  }
+}
+
+function getTestContext(overrides?: Partial<TransformContext>): TransformContext {
   return {
     assets: [],
     base: '',
@@ -269,9 +303,7 @@ function getTestContext(): TransformContext {
     publicDir: new URL(import.meta.url),
     slug: 'test',
     url: new URL('src/content/docs/test.md', import.meta.url),
-    version: {
-      slug: '2.0.1',
-      redirect: 'same-page',
-    },
+    version: getTestVersion(),
+    ...overrides,
   }
 }

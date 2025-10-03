@@ -57,6 +57,12 @@ export const VersionSchema = z
      * @example '3-1-2'
      */
     slug: z.string().refine((value) => stripLeadingSlash(stripTrailingSlash(value))),
+    /**
+     * Set to false to exclude the versioned pages from the Pagefind search index.
+     *
+     * @default true
+     */
+    pagefind: z.boolean().default(true),
   })
   .merge(VersionBaseSchema)
 

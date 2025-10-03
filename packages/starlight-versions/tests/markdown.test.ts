@@ -289,6 +289,7 @@ async function transformTestMarkdown(markdown: string, context: TransformTestCon
     version: {
       slug: '2.0',
       redirect: 'same-page',
+      pagefind: true,
     },
     ...context,
   })
